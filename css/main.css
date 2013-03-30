@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Scada';
+    src: url('fonts/scada-regular-webfont.eot');
+    src: url('fonts/scada-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/scada-regular-webfont.woff') format('woff'),
+    url('fonts/scada-regular-webfont.ttf') format('truetype'),
+    url('fonts/scada-regular-webfont.svg#scadaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+}
+
+body {
+    font-family: 'Scada', sans-serif;
+
+    background: #fff url(../img/white_wall_hash.png);
+    background-size: 500px 500px;
+}
