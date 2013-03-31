@@ -10,7 +10,7 @@
         var $cells,
             $grid,
             $imgs,
-            $categoriesList,
+            $categoriesList, $categoriesMobileList,
             $slider, $sliderContainer,
             $sliderNext, $sliderPrev, $sliderDesc, $sliderClose, $sliderPlay,
             $currentSlide = $(), $currentImg = $();
@@ -54,7 +54,7 @@
                 }, 100);
             },
             bodyClick: function(e) {
-                if($(e.target).closest('.gallery-select').length === 0) {
+                if($(e.target).closest('.gallery-cats').length === 0) {
                     $categoriesList.removeClass('open');
                 }
             },
@@ -207,13 +207,11 @@
             self.addClass('gallery');
 
             if(categories.length > 0) {
-                $categoriesList = $('<ul class="gallery-select-list" />');
+                $categoriesList = $('<ul class="gallery-cats" />');
                 self.prepend($('<div class="gallery-top" />').html($categoriesList));
-                $categoriesList.wrap('<div class="gallery-select" />');
-
-                $categoriesList.append('<li class="gallery-select-item"><span>' + self.options.noCategoryName + '</span></li>');
+                $categoriesList.append('<li class="gallery-cats-item"><span>' + self.options.noCategoryName + '</span></li>');
                 for(var i = 0; i < categories.length; i++) {
-                    $categoriesList.append('<li class="gallery-select-item"><span>' + categories[i] + '</span></li>');
+                    $categoriesList.append('<li class="gallery-cats-item"><span>' + categories[i] + '</span></li>');
                 }
             }
 
@@ -363,20 +361,20 @@
          * @param category
          */
         var changeCategory = function(category) {
-            $categoriesList.empty().prepend('<li class="gallery-select-item"><span>' + category + '</span></li>');
+            $categoriesList.empty().prepend('<li class="gallery-cats-item"><span>' + category + '</span></li>');
 
             hideCells();
             if(category === self.options.noCategoryName) {
                 loadImages(0);
             } else {
-                $categoriesList.append('<li class="gallery-select-item"><span>' + self.options.noCategoryName + '</span></li>');
+                $categoriesList.append('<li class="gallery-cats-item"><span>' + self.options.noCategoryName + '</span></li>');
                 loadImages(0, category);
             }
 
             for(var i = 0, len = categories.length, cat; i < len; i++) {
                 cat = categories[i];
                 if(cat !== category) {
-                    $categoriesList.append('<li class="gallery-select-item"><span>' + cat + '</span></li>');
+                    $categoriesList.append('<li class="gallery-cats-item"><span>' + cat + '</span></li>');
                 }
             }
         };
@@ -635,6 +633,8 @@
         this.openSlider = openSlider;
         this.closeSlider = closeSlider;
         this.changeCategory = changeCategory;
+        this.startSlideShow = startSlideShow;
+        this.stopSlideShow = stopSlideShow;
         this.nextSlide = function() {
             $sliderNext.click();
         };
