@@ -232,7 +232,6 @@
                     .append('<div class="gallery-cell-overlay" />');
             });
 
-
             $cells = self.find('.gallery-cell');
             $grid = self.find('.gallery-grid');
 
@@ -411,6 +410,8 @@
                 return;
             }
 
+            stopSlideShow();
+
             var index = parseInt(visibleCells[visibleIndex].getAttribute('data-index'), 10);
 
             currentSlideIndex = visibleIndex;
@@ -439,6 +440,7 @@
 
             var td = getTransitionDuration($slider),
                 next = function() {
+                    stopSlideShow();
                     slides = [];
                     $sliderContainer.empty();
                     $slider.hide();
@@ -447,7 +449,6 @@
                     isSliderOpened = false;
                 };
 
-            stopSlideShow();
             $slider.removeClass('opened');
             if(checkTransitionsSupport()) {
                 setTimeout(next, td + 100);
