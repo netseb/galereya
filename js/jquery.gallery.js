@@ -48,10 +48,7 @@
          */
         var Handlers = {
             windowResize: function() {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(function() {
-                    resize();
-                }, 100);
+                resize();
             },
             bodyClick: function(e) {
                 if($(e.target).closest('.gallery-cats').length === 0) {
