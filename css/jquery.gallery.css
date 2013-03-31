@@ -264,9 +264,7 @@
         .gallery-slider-nav.left { left: 0; background-image: url(../img/arrow-prev.png); }
         .gallery-slider-nav.right { right: 0; background-image: url(../img/arrow-next.png); }
 
-        .gallery-slider-nav:active {
-            opacity: 0.15;
-        }
+        .gallery-slider-nav:hover { opacity: 0.0; }
 
         .gallery-slider-desc {
             font-size: 10pt;
