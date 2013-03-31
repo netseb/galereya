@@ -156,7 +156,7 @@
                 $elem.css('oTransitionDuration') ||
                 $elem.css('msTransitionDuration') ||
                 0;
-            td = parseInt(td, 10) * 1000;
+            td = parseFloat(td) * 1000;
 
             return td;
         };
