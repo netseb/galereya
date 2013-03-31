@@ -201,14 +201,13 @@
     /* Gallery slider(begin) */
     .gallery-slider {
         position: absolute;
-        left: 0;
         top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
         z-index: 1000000;
 
         display: none;
-
-        width: 100%;
-        height: 100%;
 
         background: transparent;
         -webkit-transition: -webkit-transform .5s ease-out;
@@ -332,11 +331,10 @@
                 position: absolute;
                 top: 0;
                 left: 0;
+                bottom: 0;
+                right: 0;
 
                 overflow: hidden;
-
-                width: 100%;
-                height: 100%;
 
                 text-align: center;
 
@@ -427,9 +425,7 @@
         -o-transition: none; /*Sorry Opera, you are slow enough*/
     }
 
-    .gallery-slider-nav:hover { opacity: 0.15; }
-
-    .gallery-slider-close:hover, .gallery-slider-play:hover { opacity: 0.3; }
+    .gallery-slider-nav { opacity: 0.05; }
 
     .gallery-slider-slide {
         -webkit-transition: -webkit-transform 1s ease-out;
