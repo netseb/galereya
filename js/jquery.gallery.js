@@ -614,7 +614,7 @@
          * Add event listeners
          */
         var addEventListeners = function() {
-            //$(window).bind('resize', Handlers.windowResize);
+            $(window).bind('resize', Handlers.windowResize);
             $(document.body).click(Handlers.bodyClick)
                 .keydown(Handlers.bodyKeyDown)
                 .keyup(Handlers.bodyKeyUp);
