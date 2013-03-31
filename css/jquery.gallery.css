@@ -255,16 +255,12 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: 12px 30px;
-            -webkit-transition: all 0.3s ease-out;
-            -moz-transition: all 0.3s ease-out;
-            -o-transition: all 0.3s ease-out;
-            transition: all 0.3s ease-out;
         }
 
         .gallery-slider-nav.left { left: 0; background-image: url(../img/arrow-prev.png); }
         .gallery-slider-nav.right { right: 0; background-image: url(../img/arrow-next.png); }
 
-        .gallery-slider-nav:hover { opacity: 0.0; }
+        .gallery-slider-nav:active { opacity: 0.15; }
 
         .gallery-slider-desc {
             font-size: 10pt;
@@ -410,7 +406,13 @@
         display: block;
     }
 
-    .gallery-slider-nav.left { opacity: 0.05; }
-    .gallery-slider-nav.right { opacity: 0.05; }
+    .gallery-slider-nav {
+        opacity: 0.05;
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+    }
+
     .gallery-slider-nav:hover { opacity: 0.15; }
 }
