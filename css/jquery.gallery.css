@@ -264,11 +264,8 @@
         .gallery-slider-nav.left { left: 0; background-image: url(../img/arrow-prev.png); }
         .gallery-slider-nav.right { right: 0; background-image: url(../img/arrow-next.png); }
 
-        .gallery-slider-nav:hover {
+        .gallery-slider-nav:active {
             opacity: 0.15;
-            -webkit-transition: all 0.3s ease-out;
-            -moz-transition: all 0.3s ease-out;
-            -o-transition: all 0.3s ease-out;
         }
 
         .gallery-slider-desc {
