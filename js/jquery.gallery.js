@@ -439,7 +439,6 @@
 
             var td = getTransitionDuration($slider),
                 next = function() {
-                    stopSlideShow();
                     slides = [];
                     $sliderContainer.empty();
                     $slider.hide();
@@ -448,6 +447,7 @@
                     isSliderOpened = false;
                 };
 
+            stopSlideShow();
             $slider.removeClass('opened');
             if(checkTransitionsSupport()) {
                 setTimeout(next, td + 100);
@@ -644,7 +644,7 @@
         constructor();
         if (this.length > 1){
             this.each(function() {
-                $(this).gallery(options)
+                $(this).gallery(options);
             });
         }
         return this;
