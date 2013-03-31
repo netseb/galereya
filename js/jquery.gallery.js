@@ -415,7 +415,7 @@
             currentSlideIndex = visibleIndex;
             htmlOverflow = $('html').css('overflow');
             bodyOverflow = $('body').css('overflow');
-            $('html, body').css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
+            $('html, body').css('overflow', 'hidden');
 
             $sliderContainer.empty();
 
