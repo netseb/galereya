@@ -412,5 +412,11 @@
 
     .gallery-slider-nav.left { opacity: 0.05; }
     .gallery-slider-nav.right { opacity: 0.05; }
-    .gallery-slider-nav:hover { opacity: 0.15; }
+    .gallery-slider-nav:hover {
+        opacity: 0.15;
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+    }
 }
