@@ -211,9 +211,9 @@
         height: 100%;
 
         background: transparent;
-        -webkit-transition: -webkit-transform 1s;
-        -moz-transition: -moz-transform 1s;
-        transition: transform 1s;
+        -webkit-transition: -webkit-transform .5s ease-out;
+        -moz-transition: -moz-transform .5s ease-out;
+        transition: transform .5s ease-out;
         -o-transition: none;
         -webkit-transform: translateX(110%);
         -moz-transform: translateX(110%);
@@ -344,9 +344,9 @@
 
                 -webkit-box-shadow: 0px 0px 20px 4px #000;
                 box-shadow: 0px 0px 20px 4px #000;
-                -webkit-transition: -webkit-transform 1s;
-                -moz-transition: -moz-transform 1s;
-                transition: transform 1s ease;
+                -webkit-transition: -webkit-transform .5s ease-out;
+                -moz-transition: -moz-transform .5s ease-out;
+                transition: transform .5s ease-out;
                 -o-transition: none; /*Sorry Opera, you are slow enough*/
             }
 
@@ -415,7 +415,21 @@
         display: block;
     }
 
+    .gallery-slider {
+        -webkit-transition: -webkit-transform 1s ease-out;
+        -moz-transition: -moz-transform 1s ease-out;
+        transition: transform 1s ease-out;
+        -o-transition: none; /*Sorry Opera, you are slow enough*/
+    }
+
     .gallery-slider-nav:hover { opacity: 0.15; }
 
     .gallery-slider-close:hover, .gallery-slider-play:hover { opacity: 0.3; }
+
+    .gallery-slider-slide {
+        -webkit-transition: -webkit-transform 1s ease-out;
+        -moz-transition: -moz-transform 1s ease-out;
+        transition: transform 1s ease-out;
+        -o-transition: none; /*Sorry Opera, you are slow enough*/
+    }
 }
