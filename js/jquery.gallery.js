@@ -1,7 +1,7 @@
 (function ($) {
     'use strict';
 
-    $.fn.gallery = function () {
+    function Gallery(options) {
         var self = this;
 
         /**
@@ -28,13 +28,14 @@
             currentSlideIndex,
             isSliderOpened = false,
             slideShowInterval;
+
         /**
-         * Options
+         * Default options
          * @type {Object}
          */
-        var opts = {
-            rowCount: 0,
-            cellW: 300,
+        var defaults = {
+            rowCount: 0, //auto calculated
+            cellW: 300, //auto calculated from css
             spacing: 0,
             waveTimeout: 300,
             slideShowSpeed: 10000,
@@ -72,7 +73,7 @@
                 $categoriesList.toggleClass('open');
             },
             cellClick: function() {
-                showSlider(parseInt(this.getAttribute('data-visibleIndex'), 10));
+                openSlider(parseInt(this.getAttribute('data-visibleIndex'), 10));
             },
             sliderNextClick: function() {
                 changeSlide('next');
@@ -164,14 +165,14 @@
          * Calculate some starting params
          */
         var calcParams = function() {
-            opts.cellW = $cells.width();
+            self.options.cellW = $cells.width();
 
-            opts.rowCount = Math.floor(self.width() / (opts.cellW + opts.spacing));
-            if(opts.rowCount < 1) {
-                opts.rowCount = 1;
+            self.options.rowCount = Math.floor(self.width() / (self.options.cellW + self.options.spacing));
+            if(self.options.rowCount < 1) {
+                self.options.rowCount = 1;
             }
 
-            opts.gridW = opts.rowCount * opts.cellW;
+            self.options.gridW = self.options.rowCount * self.options.cellW;
         };
 
         /**
@@ -207,10 +208,10 @@
 
             if(categories.length > 0) {
                 $categoriesList = $('<ul class="gallery-select-list" />');
-                self.prepend($categoriesList);
+                self.prepend($('<div class="gallery-top" />').html($categoriesList));
                 $categoriesList.wrap('<div class="gallery-select" />');
 
-                $categoriesList.append('<li class="gallery-select-item"><span>' + opts.noCategoryName + '</span></li>');
+                $categoriesList.append('<li class="gallery-select-item"><span>' + self.options.noCategoryName + '</span></li>');
                 for(var i = 0; i < categories.length; i++) {
                     $categoriesList.append('<li class="gallery-select-item"><span>' + categories[i] + '</span></li>');
                 }
@@ -251,6 +252,8 @@
                 .append($sliderClose)
                 .append($sliderPlay);
             $(document.body).append($slider);
+
+            self.show();
         };
 
         /**
@@ -316,11 +319,11 @@
         var placeCell = function(cell, number) {
             var left, top, topCell, row;
 
-            row = number % opts.rowCount;
-            left = row * opts.cellW + opts.spacing * row;
-            if(number  >= opts.rowCount) {
-                topCell = visibleCells[number - opts.rowCount];
-                top = topCell.offsetTop + topCell.offsetHeight + opts.spacing;
+            row = number % self.options.rowCount;
+            left = row * self.options.cellW + self.options.spacing * row;
+            if(number  >= self.options.rowCount) {
+                topCell = visibleCells[number - self.options.rowCount];
+                top = topCell.offsetTop + topCell.offsetHeight + self.options.spacing;
             } else {
                 top = 0;
             }
@@ -353,7 +356,7 @@
             setTimeout(function() {
                 $cell.removeClass('wave');
                 wave(++index);
-            }, opts.waveTimeout);
+            }, self.options.waveTimeout);
         };
 
         /**
@@ -364,10 +367,10 @@
             $categoriesList.empty().prepend('<li class="gallery-select-item"><span>' + category + '</span></li>');
 
             hideCells();
-            if(category === opts.noCategoryName) {
+            if(category === self.options.noCategoryName) {
                 loadImages(0);
             } else {
-                $categoriesList.append('<li class="gallery-select-item"><span>' + opts.noCategoryName + '</span></li>');
+                $categoriesList.append('<li class="gallery-select-item"><span>' + self.options.noCategoryName + '</span></li>');
                 loadImages(0, category);
             }
 
@@ -389,7 +392,7 @@
                 $currentImg = $currentSlide.find('.gallery-slide-img');
             }
             $currentImg.css('margin-top', ($(window).height() - $currentImg.height()) / 2);
-            $grid.width(opts.gridW);
+            $grid.width(self.options.gridW);
 
             for(var i = 0, len = visibleCells.length; i < len; i++) {
                 placeCell(visibleCells[i], i);
@@ -400,10 +403,10 @@
          * Show slider
          * @param visibleIndex
          */
-        var showSlider = function(visibleIndex) {
+        var openSlider = function(visibleIndex) {
             if(isSliderOpened) {
                 setTimeout(function() {
-                    showSlider(visibleIndex);
+                    openSlider(visibleIndex);
                 }, 50);
                 return;
             }
@@ -435,15 +438,15 @@
             }
 
             var td = getTransitionDuration($slider),
-            next = function() {
-                stopSlideShow();
-                slides = [];
-                $sliderContainer.empty();
-                $slider.hide();
-                $('html').css('overflow', htmlOverflow);
-                $('body').css('overflow', bodyOverflow);
-                isSliderOpened = false;
-            };
+                next = function() {
+                    stopSlideShow();
+                    slides = [];
+                    $sliderContainer.empty();
+                    $slider.hide();
+                    $('html').css('overflow', htmlOverflow);
+                    $('body').css('overflow', bodyOverflow);
+                    isSliderOpened = false;
+                };
 
             $slider.removeClass('opened');
             if(checkTransitionsSupport()) {
@@ -456,6 +459,8 @@
          * @param visibleIndex
          */
         var createSlide = function(visibleIndex) {
+            clearInterval(slideShowInterval); //freeze slide show
+
             var cell = visibleCells[visibleIndex],
                 index = parseInt(cell.getAttribute('data-index'), 10),
                 $slide,
@@ -467,6 +472,9 @@
             $img = $('<img class="gallery-slide-img" src="' + data[index].src + '" alt="' + data[index].title + '" />').load(function() {
                 $slide.html($img);
                 $img.css('margin-top', ($(window).height() - $img.height()) / 2);
+                if(slideShowInterval) {
+                    startSlideShow(); //resume slide show when an image is loaded
+                }
             });
 
             return $slide;
@@ -569,8 +577,11 @@
             var len = visibleCells.length;
 
             if(currentSlideIndex >= len - 1) {
+                stopSlideShow();
+                $sliderPlay.hide();
                 $sliderNext.hide();
             } else {
+                $sliderPlay.show();
                 $sliderNext.show();
             }
 
@@ -588,7 +599,7 @@
             $sliderPlay.addClass('pause');
             slideShowInterval = setInterval(function() {
                 $sliderNext.click();
-            }, opts.slideShowSpeed);
+            }, self.options.slideShowSpeed);
         };
 
         /**
@@ -616,8 +627,28 @@
             $sliderPlay.click(Handlers.sliderPlayClick);
         };
 
-        constructor();
+        /**
+         * Public
+         */
+        this.options = $.extend({}, defaults, options);
+        this.openSlider = openSlider;
+        this.closeSlider = closeSlider;
+        this.changeCategory = changeCategory;
+        this.nextSlide = function() {
+            $sliderNext.click();
+        };
+        this.prevSlide = function() {
+            $sliderPrev.click();
+        };
 
+        constructor();
+        if (this.length > 1){
+            this.each(function() {
+                $(this).gallery(options)
+            });
+        }
         return this;
     }
+
+    $.fn.gallery = Gallery;
 }(jQuery));
