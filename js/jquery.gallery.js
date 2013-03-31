@@ -614,7 +614,7 @@
          * Add event listeners
          */
         var addEventListeners = function() {
-            $(window).resize(Handlers.windowResize);
+            $(window).bind('resize orientationchange', Handlers.windowResize);
             $(document.body).click(Handlers.bodyClick)
                 .keydown(Handlers.bodyKeyDown)
                 .keyup(Handlers.bodyKeyUp);
