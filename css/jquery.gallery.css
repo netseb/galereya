@@ -306,12 +306,18 @@
             background-size: 35px 35px;
             background-repeat: no-repeat;
             background-position: center;
-            -webkit-transition: all 0.3s ease-out;
-            -moz-transition: all 0.3s ease-out;
-            -o-transition: all 0.3s ease-out;
-            transition: all 0.3s ease-out;
+            -webkit-transition: opacity 0.3s ease-out;
+            -moz-transition: opacity 0.3s ease-out;
+            -o-transition: opacity 0.3s ease-out;
+            transition: opacity 0.3s ease-out;
         }
-        .gallery-slider-close:hover, .gallery-slider-play:hover { opacity: 0.3; }
+        .gallery-slider-close:active, .gallery-slider-play:active {
+            opacity: 0.3;
+            -webkit-transition: none;
+            -moz-transition: none;
+            -o-transition: none;
+            transition: none;
+        }
         .gallery-slider-close {
             top: 0;
             left: 0;
@@ -416,13 +422,7 @@
         display: block;
     }
 
-    .gallery-slider-nav {
-        opacity: 0.05;
-        -webkit-transition: all 0.3s ease-out;
-        -moz-transition: all 0.3s ease-out;
-        -o-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out;
-    }
-
     .gallery-slider-nav:hover { opacity: 0.15; }
+
+    .gallery-slider-close:hover, .gallery-slider-play:hover { opacity: 0.3; }
 }
