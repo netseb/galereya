@@ -8,6 +8,11 @@
     height: 100%;
 }
 
+    .gallery * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+
     .gallery-clearfix {
         clear: both;
     }
