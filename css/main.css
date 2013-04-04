@@ -9,6 +9,19 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Scada';
+    src: url('fonts/scada-bold-webfont.eot');
+    src: url('fonts/scada-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/scada-bold-webfont.woff') format('woff'),
+    url('fonts/scada-bold-webfont.ttf') format('truetype'),
+    url('fonts/scada-bold-webfont.svg#scadaregular') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-touch-callout: none;

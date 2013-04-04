@@ -9,11 +9,11 @@
          */
         var $cells,
             $grid,
-            $imgs,
-            $categoriesList, $categoriesMobileList,
+            $imgs = $([]),
+            $categoriesList = $([]), $categoriesMobileList,
             $slider, $sliderContainer,
             $sliderNext, $sliderPrev, $sliderDesc, $sliderClose, $sliderPlay,
-            $currentSlide = $(), $currentImg = $();
+            $currentSlide = $([]), $currentImg = $([]);
 
         /**
          * Variables
@@ -39,7 +39,11 @@
             spacing: 0,
             waveTimeout: 300,
             slideShowSpeed: 10000,
-            noCategoryName: 'all'
+            noCategoryName: 'all',
+            disableSliderOnClick: false,
+            load: function(next) {
+                next();
+            }
         };
 
         /**
@@ -70,7 +74,9 @@
                 $categoriesList.toggleClass('open');
             },
             cellClick: function() {
-                openSlider(parseInt(this.getAttribute('data-visibleIndex'), 10));
+                if(!self.options.disableSliderOnClick) {
+                    openSlider(parseInt(this.getAttribute('data-visibleIndex'), 10));
+                }
             },
             sliderNextClick: function() {
                 changeSlide('next');
@@ -117,14 +123,16 @@
          * Local constructor
          */
         var constructor = function() {
-            loadData();
-            buildDOM();
-            resize();
-            loadImages();
-            if(checkTransitionsSupport()) {
-                wave();
-            }
-            addEventListeners();
+            self.addClass('gallery');
+            loadData(function() {
+                buildDOM();
+                resize();
+                loadImages();
+                if(checkTransitionsSupport()) {
+                    wave();
+                }
+                addEventListeners();
+            });
         };
 
         /**
@@ -175,12 +183,12 @@
         /**
          * Loading data
          */
-        var loadData = function() {
+        var loadData = function(next) {
             var item;
             $imgs = self.find('img').each(function(i, img) {
                 item = {
                     "lowsrc": img.getAttribute('src') || '',
-                    "src": img.getAttribute('data-fullsrc') || '',
+                    "fullsrc": img.getAttribute('data-fullsrc') || '',
                     "title": img.getAttribute('title') || img.getAttribute('alt') || '',
                     "description": img.getAttribute('data-desc') || '',
                     "category": img.getAttribute('data-category') || ''
@@ -195,14 +203,24 @@
 
                 data.push(item);
             });
+
+            self.options.load(function(items) {
+                for(var i = 0, len = items.length, item, $img; i < len; i++) {
+                    item = items[i];
+                    $img = $(document.createElement('img')).attr('src', item.lowsrc);
+                    self.append($img);
+                    $imgs = $imgs.add($img);
+                    data.push(item);
+                }
+
+                next();
+            });
         };
 
         /**
          * Building DOM
          */
         var buildDOM = function() {
-            self.addClass('gallery');
-
             if(categories.length > 0) {
                 $categoriesList = $('<ul class="gallery-cats" />');
                 self.prepend($('<div class="gallery-top" />').html($categoriesList));
@@ -447,6 +465,8 @@
             $slider.removeClass('opened');
             if(checkTransitionsSupport()) {
                 setTimeout(next, td + 100);
+            } else {
+                next();
             }
         };
 
@@ -465,7 +485,7 @@
             $slide = $('<div class="gallery-slider-slide" />')
                 .html('<div class="gallery-slide-loader"></div>');
 
-            $img = $('<img class="gallery-slide-img" src="' + data[index].src + '" alt="' + data[index].title + '" />').load(function() {
+            $img = $('<img class="gallery-slide-img" src="' + data[index].fullsrc + '" alt="' + data[index].title + '" />').load(function() {
                 $slide.html($img);
                 $img.css('margin-top', ($(window).height() - $img.height()) / 2);
                 if(slideShowInterval) {
