@@ -207,6 +207,15 @@
             self.options.load(function(items) {
                 for(var i = 0, len = items.length, item, $img; i < len; i++) {
                     item = items[i];
+                    item.description = item.description || '';
+                    item.title = item.title || '';
+                    if(item.category) {
+                        item.category = item.category.toLowerCase();
+                        if($.inArray(item.category, categories) === -1) {
+                            categories.push(item.category);
+                        }
+                    }
+
                     $img = $(document.createElement('img')).attr('src', item.lowsrc);
                     self.append($img);
                     $imgs = $imgs.add($img);
@@ -349,7 +358,7 @@
          */
         var hideCells = function() {
             visibleCells = [];
-            $cells.fadeOut(200).removeClass('visible');
+            $cells.stop(true, true).fadeOut(200).removeClass('visible');
         };
 
         /**
@@ -560,11 +569,10 @@
 
             }
 
-            index = visibleCells[currentSlideIndex].getAttribute('data-index');
-            $sliderDesc.empty().html('<span class="gallery-slider-desc-title">' + data[index].title + ' </span>' + data[index].description);
-
             currentSlideIndex = nextSlideIndex;
             $currentSlide = $slide;
+            index = visibleCells[currentSlideIndex].getAttribute('data-index');
+            $sliderDesc.empty().html('<div class="gallery-slider-desc-title">' + data[index].title + ' </div>' + data[index].description);
             $currentImg = $slide.find('.gallery-slide-img');
             $currentImg.css('margin-top', ($(window).height() - $currentImg.height()) / 2);
 

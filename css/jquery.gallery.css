@@ -102,9 +102,10 @@
     /* Gallery grid(begin) */
     .gallery-grid {
         position: relative;
+        top: 50px;
 
         width: 100%;
-        margin: 50px auto 0 auto;
+        margin: auto;
     }
 
         .gallery-cell {
@@ -278,9 +279,7 @@
             background: rgba(0, 0, 0, .8);
         }
 
-            .gallery-slider-desc-title {
-                display: none;
-            }
+            .gallery-slider-desc-title {}
 
         .gallery-slider-close, .gallery-slider-play {
             position: absolute;
@@ -405,11 +404,7 @@
 }
 
 /* Other devices and screens */
-@media only screen and (min-width : 601px) {
-    .gallery-cats.open .gallery-cats-item {
-        padding: 1px 25px 1px 10px;
-    }
-
+@media only screen and (min-width: 601px) {
     .gallery-cell, .gallery-cell-img {
         width: 300px;
     }
@@ -432,5 +427,11 @@
         -moz-transition: -moz-transform 1s ease-out;
         transition: transform 1s ease-out;
         -o-transition: none; /*Sorry Opera, you are slow enough*/
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .gallery-cats.open .gallery-cats-item {
+        padding: 1px 25px 1px 10px;
     }
 }
