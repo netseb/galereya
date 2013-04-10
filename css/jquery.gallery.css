@@ -209,6 +209,7 @@
         z-index: 1000000;
 
         display: none;
+        overflow-x: hidden;
 
         background: transparent;
         -webkit-transition: -webkit-transform .5s ease-out;
