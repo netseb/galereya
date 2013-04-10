@@ -209,7 +209,7 @@
         z-index: 1000000;
 
         display: none;
-        overflow-x: hidden;
+        overflow: hidden;
 
         background: transparent;
         -webkit-transition: -webkit-transform .5s ease-out;
@@ -433,7 +433,6 @@
         -o-transition: none; /*Sorry Opera, you are slow enough*/
     }
 }
-
 @media only screen and (min-width: 1025px) {
     .gallery-cats.open .gallery-cats-item {
         padding: 1px 25px 1px 10px;
