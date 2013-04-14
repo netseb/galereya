@@ -8,6 +8,14 @@
     height: 100%;
 }
 
+.gallery *, .gallery-slider * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
     .gallery-clearfix {
         clear: both;
     }
@@ -201,7 +209,7 @@
 
     /* Gallery slider(begin) */
     .gallery-slider {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         bottom: 0;

@@ -10,7 +10,7 @@
         var $cells,
             $grid,
             $imgs = $([]),
-            $categoriesList = $([]), $categoriesMobileList,
+            $categoriesList = $([]),
             $slider, $sliderContainer,
             $sliderNext, $sliderPrev, $sliderDesc, $sliderClose, $sliderPlay,
             $currentSlide = $([]), $currentImg = $([]);
@@ -23,8 +23,8 @@
             categories = [],
             visibleCells = [],
             slides = [],
-            htmlOverflow, bodyOverflow,
-            loadTimeout, resizeTimeout,
+            htmlOverflow,
+            loadTimeout,
             currentSlideIndex,
             isSliderOpened = false,
             slideShowInterval;
@@ -37,11 +37,13 @@
             rowCount: 0, //auto calculated
             cellW: 300, //auto calculated from css
             spacing: 0,
+            wave: true,
             waveTimeout: 300,
             slideShowSpeed: 10000,
+            cellFadeInSpeed: 200,
             noCategoryName: 'all',
             disableSliderOnClick: false,
-            load: function(next) {
+            load: function (next) {
                 next();
             }
         };
@@ -51,59 +53,59 @@
          * @type {Object}
          */
         var Handlers = {
-            windowResize: function() {
+            windowResize: function () {
                 resize();
             },
-            bodyClick: function(e) {
-                if($(e.target).closest('.gallery-cats').length === 0) {
+            bodyClick: function (e) {
+                if ($(e.target).closest('.gallery-cats').length === 0) {
                     $categoriesList.removeClass('open');
                 }
             },
-            categoriesListClick: function(e) {
+            categoriesListClick: function (e) {
                 var $target = $(e.target),
                     nodeName = e.target.nodeName;
 
-                if(nodeName === 'SPAN') {
+                if (nodeName === 'SPAN') {
                     $target = $target.parent();
                 }
 
-                if(!$target.is(':first-child')) {
+                if (!$target.is(':first-child')) {
                     changeCategory($target.find('span').text());
                 }
 
                 $categoriesList.toggleClass('open');
             },
-            cellClick: function() {
-                if(!self.options.disableSliderOnClick) {
+            cellClick: function () {
+                if (!self.options.disableSliderOnClick) {
                     openSlider(parseInt(this.getAttribute('data-visibleIndex'), 10));
                 }
             },
-            sliderNextClick: function() {
+            sliderNextClick: function () {
                 changeSlide('next');
             },
-            sliderPrevClick: function() {
+            sliderPrevClick: function () {
                 changeSlide('prev');
             },
-            sliderCloseClick: function() {
+            sliderCloseClick: function () {
                 closeSlider();
             },
-            sliderPlayClick: function() {
-                if(!slideShowInterval) {
+            sliderPlayClick: function () {
+                if (!slideShowInterval) {
                     startSlideShow();
                 } else {
                     stopSlideShow();
                 }
             },
-            bodyKeyDown: function(e) {
-                if(isSliderOpened) {
-                    if(e.which === 37 || e.which === 39) {
+            bodyKeyDown: function (e) {
+                if (isSliderOpened) {
+                    if (e.which === 37 || e.which === 39) {
                         e.preventDefault();
                     }
                 }
             },
-            bodyKeyUp: function(e) {
-                if(isSliderOpened) {
-                    switch(e.which) {
+            bodyKeyUp: function (e) {
+                if (isSliderOpened) {
+                    switch (e.which) {
                         case 27:
                             closeSlider();
                             break;
@@ -122,13 +124,13 @@
         /**
          * Local constructor
          */
-        var constructor = function() {
+        var constructor = function () {
             self.addClass('gallery');
-            loadData(function() {
+            loadData(function () {
                 buildDOM();
                 resize();
                 loadImages();
-                if(checkTransitionsSupport()) {
+                if (self.options.wave && checkTransitionsSupport()) {
                     wave();
                 }
                 addEventListeners();
@@ -139,7 +141,7 @@
          * Checks css transitions support
          * @return {Boolean}
          */
-        var checkTransitionsSupport = function() {
+        var checkTransitionsSupport = function () {
             var s = document.createElement('div').style,
                 supportsTransitions = 'transition' in s ||
                     'WebkitTransition' in s ||
@@ -154,7 +156,7 @@
          * Get transition duration in ms
          * @return {Boolean}
          */
-        var getTransitionDuration = function($elem) {
+        var getTransitionDuration = function ($elem) {
             var td = $elem.css('transitionDuration') ||
                 $elem.css('webkitTransitionDuration') ||
                 $elem.css('mozTransitionDuration') ||
@@ -169,11 +171,11 @@
         /**
          * Calculate some starting params
          */
-        var calcParams = function() {
+        var calcParams = function () {
             self.options.cellW = $cells.width();
 
             self.options.rowCount = Math.floor(self.width() / (self.options.cellW + self.options.spacing));
-            if(self.options.rowCount < 1) {
+            if (self.options.rowCount < 1) {
                 self.options.rowCount = 1;
             }
 
@@ -183,9 +185,9 @@
         /**
          * Loading data
          */
-        var loadData = function(next) {
+        var loadData = function (next) {
             var item;
-            $imgs = self.find('img').each(function(i, img) {
+            $imgs = self.find('img').each(function (i, img) {
                 item = {
                     "lowsrc": img.getAttribute('src') || '',
                     "fullsrc": img.getAttribute('data-fullsrc') || '',
@@ -194,9 +196,9 @@
                     "category": img.getAttribute('data-category') || ''
                 };
 
-                if(item.category) {
+                if (item.category) {
                     item.category = item.category.toLowerCase();
-                    if($.inArray(item.category, categories) === -1) {
+                    if ($.inArray(item.category, categories) === -1) {
                         categories.push(item.category);
                     }
                 }
@@ -204,14 +206,14 @@
                 data.push(item);
             });
 
-            self.options.load(function(items) {
-                for(var i = 0, len = items.length, item, $img; i < len; i++) {
+            self.options.load(function (items) {
+                for (var i = 0, len = items.length, item, $img; i < len; i++) {
                     item = items[i];
                     item.description = item.description || '';
                     item.title = item.title || '';
-                    if(item.category) {
+                    if (item.category) {
                         item.category = item.category.toLowerCase();
-                        if($.inArray(item.category, categories) === -1) {
+                        if ($.inArray(item.category, categories) === -1) {
                             categories.push(item.category);
                         }
                     }
@@ -229,18 +231,18 @@
         /**
          * Building DOM
          */
-        var buildDOM = function() {
-            if(categories.length > 0) {
+        var buildDOM = function () {
+            if (categories.length > 0) {
                 $categoriesList = $('<ul class="gallery-cats" />');
                 self.prepend($('<div class="gallery-top" />').html($categoriesList));
                 $categoriesList.append('<li class="gallery-cats-item"><span>' + self.options.noCategoryName + '</span></li>');
-                for(var i = 0; i < categories.length; i++) {
+                for (var i = 0; i < categories.length; i++) {
                     $categoriesList.append('<li class="gallery-cats-item"><span>' + categories[i] + '</span></li>');
                 }
             }
 
             var $img, title, desc;
-            $imgs.wrapAll('<div class="gallery-grid" />').each(function(i, img) {
+            $imgs.wrapAll('<div class="gallery-grid" />').each(function (i, img) {
                 $img = $(img);
                 title = data[i].title;
                 desc = data[i].description;
@@ -282,35 +284,35 @@
          * @param index - starting index of an image
          * @param category - category of images
          */
-        var loadImages = function(index, category) {
+        var loadImages = function (index, category) {
             index = index || 0;
 
-            if(index >= $imgs.length) {
+            if (index >= $imgs.length) {
                 return;
             }
 
             clearTimeout(loadTimeout);
 
-            if(category && data[index].category !== category) {
-                setTimeout(function() {
+            if (category && data[index].category !== category) {
+                setTimeout(function () {
                     loadImages(++index, category);
                 }, 0);
                 return;
             }
 
             var img = $imgs[index],
-                onload = function() {
-                    if(isSliderOpened) {
+                onload = function () {
+                    if (isSliderOpened) {
                         $(this).parent().show();
                     } else {
-                        $(this).parent().fadeIn(200, 'linear');
+                        $(this).parent().fadeIn(self.options.cellFadeInSpeed, 'linear');
                     }
-                    loadTimeout = setTimeout(function() {
+                    loadTimeout = setTimeout(function () {
                         loadImages(++index, category);
-                    }, 100);
+                    }, self.options.cellFadeInSpeed / 2);
                 };
 
-            if(!img.complete) {
+            if (!img.complete) {
                 $(img).attr("src", img.src).load(onload);
             } else {
                 onload.call(img);
@@ -322,7 +324,7 @@
          * Show cell of an image
          * @param index - index of an image.
          */
-        var showCell = function(index) {
+        var showCell = function (index) {
             var cell = $cells[index],
                 currentIndex;
 
@@ -337,12 +339,12 @@
          * @param cell
          * @param number
          */
-        var placeCell = function(cell, number) {
+        var placeCell = function (cell, number) {
             var left, top, topCell, row;
 
             row = number % self.options.rowCount;
             left = row * self.options.cellW + self.options.spacing * row;
-            if(number  >= self.options.rowCount) {
+            if (number >= self.options.rowCount) {
                 topCell = visibleCells[number - self.options.rowCount];
                 top = topCell.offsetTop + topCell.offsetHeight + self.options.spacing;
             } else {
@@ -356,7 +358,7 @@
         /**
          * Clear the grid
          */
-        var hideCells = function() {
+        var hideCells = function () {
             visibleCells = [];
             $cells.stop(true, true).fadeOut(200).removeClass('visible');
         };
@@ -365,16 +367,16 @@
          * Wave pulsation
          * @param index - index of a cell
          */
-        var wave = function(index) {
+        var wave = function (index) {
             index = index || 0;
-            if(index >= $cells.length) {
+            if (index >= $cells.length) {
                 index = 0;
             }
 
             var $cell = $($cells[index]);
             $cell.addClass('wave');
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $cell.removeClass('wave');
                 wave(++index);
             }, self.options.waveTimeout);
@@ -384,20 +386,20 @@
          * Change current category of images
          * @param category
          */
-        var changeCategory = function(category) {
+        var changeCategory = function (category) {
             $categoriesList.empty().prepend('<li class="gallery-cats-item"><span>' + category + '</span></li>');
 
             hideCells();
-            if(category === self.options.noCategoryName) {
+            if (category === self.options.noCategoryName) {
                 loadImages(0);
             } else {
                 $categoriesList.append('<li class="gallery-cats-item"><span>' + self.options.noCategoryName + '</span></li>');
                 loadImages(0, category);
             }
 
-            for(var i = 0, len = categories.length, cat; i < len; i++) {
+            for (var i = 0, len = categories.length, cat; i < len; i++) {
                 cat = categories[i];
-                if(cat !== category) {
+                if (cat !== category) {
                     $categoriesList.append('<li class="gallery-cats-item"><span>' + cat + '</span></li>');
                 }
             }
@@ -406,16 +408,16 @@
         /**
          * Gallery resizing
          */
-        var resize = function() {
+        var resize = function () {
             calcParams();
 
-            if($currentImg.length === 0) {
+            if ($currentImg.length === 0) {
                 $currentImg = $currentSlide.find('.gallery-slide-img');
             }
             $currentImg.css('margin-top', ($(window).height() - $currentImg.height()) / 2);
             $grid.width(self.options.gridW);
 
-            for(var i = 0, len = visibleCells.length; i < len; i++) {
+            for (var i = 0, len = visibleCells.length; i < len; i++) {
                 placeCell(visibleCells[i], i);
             }
         };
@@ -424,9 +426,9 @@
          * Show slider
          * @param visibleIndex
          */
-        var openSlider = function(visibleIndex) {
-            if(isSliderOpened) {
-                setTimeout(function() {
+        var openSlider = function (visibleIndex) {
+            if (isSliderOpened) {
+                setTimeout(function () {
                     openSlider(visibleIndex);
                 }, 50);
                 return;
@@ -434,16 +436,13 @@
 
             stopSlideShow();
 
-            var index = parseInt(visibleCells[visibleIndex].getAttribute('data-index'), 10);
-
             currentSlideIndex = visibleIndex;
             htmlOverflow = $('html').css('overflow');
-            bodyOverflow = $('body').css('overflow');
-            $('html, body').css('overflow', 'hidden');
+            $('html').css('overflow', 'hidden');
 
             $sliderContainer.empty();
 
-            $slider.show(0, function() {
+            $slider.show(0, function () {
                 $slider.addClass('opened');
             });
             isSliderOpened = true;
@@ -455,24 +454,23 @@
         /**
          * Close slider
          */
-        var closeSlider = function() {
-            if(!isSliderOpened) {
+        var closeSlider = function () {
+            if (!isSliderOpened) {
                 return;
             }
 
             var td = getTransitionDuration($slider),
-                next = function() {
+                next = function () {
                     stopSlideShow();
                     slides = [];
                     $sliderContainer.empty();
                     $slider.hide();
                     $('html').css('overflow', htmlOverflow);
-                    $('body').css('overflow', bodyOverflow);
                     isSliderOpened = false;
                 };
 
             $slider.removeClass('opened');
-            if(checkTransitionsSupport()) {
+            if (checkTransitionsSupport()) {
                 setTimeout(next, td + 100);
             } else {
                 next();
@@ -483,7 +481,7 @@
          * Create slide
          * @param visibleIndex
          */
-        var createSlide = function(visibleIndex) {
+        var createSlide = function (visibleIndex) {
             clearInterval(slideShowInterval); //freeze slide show
 
             var cell = visibleCells[visibleIndex],
@@ -494,10 +492,10 @@
             $slide = $('<div class="gallery-slider-slide" />')
                 .html('<div class="gallery-slide-loader"></div>');
 
-            $img = $('<img class="gallery-slide-img" src="' + data[index].fullsrc + '" alt="' + data[index].title + '" />').load(function() {
+            $img = $('<img class="gallery-slide-img" src="' + data[index].fullsrc + '" alt="' + data[index].title + '" />').load(function () {
                 $slide.html($img);
                 $img.css('margin-top', ($(window).height() - $img.height()) / 2);
-                if(slideShowInterval) {
+                if (slideShowInterval) {
                     startSlideShow(); //resume slide show when an image is loaded
                 }
             });
@@ -509,12 +507,12 @@
          * Go to slide
          * @param direction
          */
-        var changeSlide = function(direction) {
+        var changeSlide = function (direction) {
             direction = direction || 'next';
 
             //restore slide show interval, if slide show currently works.
             //Make it works correctly, when someone clicked next or prev button.
-            if(slideShowInterval) {
+            if (slideShowInterval) {
                 stopSlideShow();
                 startSlideShow();
             }
@@ -525,20 +523,20 @@
                 index,
                 slidesCount = visibleCells.length;
 
-            if(dir === 'next') {
+            if (dir === 'next') {
 
-                if(slides.length === 0) {
+                if (slides.length === 0) {
                     nextSlideIndex = currentSlideIndex;
                     dir = '';
                 } else {
                     nextSlideIndex = currentSlideIndex + 1;
-                    if(nextSlideIndex >= slidesCount) {
+                    if (nextSlideIndex >= slidesCount) {
                         return;
                     }
                 }
 
                 $slide = slides[nextSlideIndex];
-                if(!$slide) {
+                if (!$slide) {
                     $slide = createSlide(nextSlideIndex);
                     $slide.addClass(dir);
                     $sliderContainer.append($slide);
@@ -547,18 +545,18 @@
                 changeSlideState($slide, 'current');
                 changeSlideState($currentSlide, 'prev');
 
-            } else if(dir === 'prev') {
+            } else if (dir === 'prev') {
 
-                if(slides.length !== 0) {
+                if (slides.length !== 0) {
                     dir = '';
                 }
                 nextSlideIndex = currentSlideIndex - 1;
-                if(nextSlideIndex < 0) {
+                if (nextSlideIndex < 0) {
                     return;
                 }
 
                 $slide = slides[nextSlideIndex];
-                if(!$slide) {
+                if (!$slide) {
                     $slide = createSlide(nextSlideIndex);
                     $slide.addClass(dir);
                     $sliderContainer.prepend($slide);
@@ -584,8 +582,8 @@
          * @param $slide
          * @param direction
          */
-        var changeSlideState = function($slide, direction) {
-            setTimeout(function() {
+        var changeSlideState = function ($slide, direction) {
+            setTimeout(function () {
                 $slide
                     .removeClass('prev')
                     .removeClass('next')
@@ -597,10 +595,10 @@
         /**
          * Update navigation
          */
-        var updateNavigation = function() {
+        var updateNavigation = function () {
             var len = visibleCells.length;
 
-            if(currentSlideIndex >= len - 1) {
+            if (currentSlideIndex >= len - 1) {
                 stopSlideShow();
                 $sliderPlay.hide();
                 $sliderNext.hide();
@@ -609,7 +607,7 @@
                 $sliderNext.show();
             }
 
-            if(currentSlideIndex <= 0) {
+            if (currentSlideIndex <= 0) {
                 $sliderPrev.hide();
             } else {
                 $sliderPrev.show();
@@ -619,9 +617,9 @@
         /**
          * Start slide show
          */
-        var startSlideShow = function() {
+        var startSlideShow = function () {
             $sliderPlay.addClass('pause');
-            slideShowInterval = setInterval(function() {
+            slideShowInterval = setInterval(function () {
                 $sliderNext.click();
             }, self.options.slideShowSpeed);
         };
@@ -629,7 +627,7 @@
         /**
          * Stop slide show
          */
-        var stopSlideShow = function() {
+        var stopSlideShow = function () {
             $sliderPlay.removeClass('pause');
             clearInterval(slideShowInterval);
             slideShowInterval = null;
@@ -638,7 +636,7 @@
         /**
          * Add event listeners
          */
-        var addEventListeners = function() {
+        var addEventListeners = function () {
             $(window).bind('resize', Handlers.windowResize);
             $(document.body).click(Handlers.bodyClick)
                 .keydown(Handlers.bodyKeyDown)
@@ -660,16 +658,16 @@
         this.changeCategory = changeCategory;
         this.startSlideShow = startSlideShow;
         this.stopSlideShow = stopSlideShow;
-        this.nextSlide = function() {
+        this.nextSlide = function () {
             $sliderNext.click();
         };
-        this.prevSlide = function() {
+        this.prevSlide = function () {
             $sliderPrev.click();
         };
 
         constructor();
-        if (this.length > 1){
-            this.each(function() {
+        if (this.length > 1) {
+            this.each(function () {
                 $(this).gallery(options);
             });
         }
