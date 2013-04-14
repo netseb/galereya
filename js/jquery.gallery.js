@@ -23,7 +23,8 @@
             categories = [],
             visibleCells = [],
             slides = [],
-            htmlOverflow,
+            htmlOverflow, bodyOverflow,
+            scrollTop,
             loadTimeout,
             currentSlideIndex,
             isSliderOpened = false,
@@ -435,18 +436,27 @@
             }
 
             stopSlideShow();
-
-            currentSlideIndex = visibleIndex;
-            htmlOverflow = $('html').css('overflow');
-            $('html').css('overflow', 'hidden');
-
             $sliderContainer.empty();
+            currentSlideIndex = visibleIndex;
 
-            $slider.show(0, function () {
+            var td = getTransitionDuration($slider),
+                next = function() {
+                    htmlOverflow = $('html').css('overflow');
+                    bodyOverflow = $('body').css('overflow');
+                    scrollTop = $(window).scrollTop();
+                    $('html, body').css('overflow', 'hidden');
+                };
+
+            $slider.show(0, function() {
                 $slider.addClass('opened');
+                if (checkTransitionsSupport()) {
+                    setTimeout(next, td + 50);
+                } else {
+                    next();
+                }
             });
-            isSliderOpened = true;
 
+            isSliderOpened = true;
             changeSlide();
             updateNavigation();
         };
@@ -459,19 +469,22 @@
                 return;
             }
 
+            $('html').css('overflow', htmlOverflow);
+            $('body').css('overflow', bodyOverflow);
+            $(window).scrollTop(scrollTop);
+
             var td = getTransitionDuration($slider),
                 next = function () {
                     stopSlideShow();
                     slides = [];
                     $sliderContainer.empty();
                     $slider.hide();
-                    $('html').css('overflow', htmlOverflow);
                     isSliderOpened = false;
                 };
 
             $slider.removeClass('opened');
             if (checkTransitionsSupport()) {
-                setTimeout(next, td + 100);
+                setTimeout(next, td + 50);
             } else {
                 next();
             }

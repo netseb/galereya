@@ -26,7 +26,7 @@
 .gallery-slider-nav { filter: alpha(opacity=5); }
 .gallery-slider-nav:hover { filter: alpha(opacity=15); }
 
-.gallery-slider-play, .gallery-slider-close { filter: alpha(opacity=15); }
+.gallery-slider-play, .gallery-slider-close, .gallery-slide-loader { filter: alpha(opacity=15); }
 .gallery-slider-play:hover, .gallery-slider-close:hover { filter: alpha(opacity=30); }
 
 .gallery-slider-desc { filter: alpha(opacity=90); background: #000; }
