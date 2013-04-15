@@ -1,7 +1,14 @@
+/**
+ * Galereya v 0.9
+ * http://vodkabears.github.com/galereya
+ *
+ * Licensed under the MIT license
+ * Copyright (c) 2013, VodkaBears
+ */
 (function ($) {
     'use strict';
 
-    function Gallery(options) {
+    function Galereya(options) {
         var self = this;
 
         /**
@@ -17,7 +24,6 @@
 
         /**
          * Variables
-         * @type {Array}
          */
         var data = [],
             categories = [],
@@ -58,7 +64,7 @@
                 resize();
             },
             bodyClick: function (e) {
-                if ($(e.target).closest('.gallery-cats').length === 0) {
+                if ($(e.target).closest('.galereya-cats').length === 0) {
                     $categoriesList.removeClass('open');
                 }
             },
@@ -126,7 +132,7 @@
          * Local constructor
          */
         var constructor = function () {
-            self.addClass('gallery');
+            self.addClass('galereya');
             loadData(function () {
                 buildDOM();
                 resize();
@@ -234,39 +240,39 @@
          */
         var buildDOM = function () {
             if (categories.length > 0) {
-                $categoriesList = $('<ul class="gallery-cats" />');
-                self.prepend($('<div class="gallery-top" />').html($categoriesList));
-                $categoriesList.append('<li class="gallery-cats-item"><span>' + self.options.noCategoryName + '</span></li>');
+                $categoriesList = $('<ul class="galereya-cats" />');
+                self.prepend($('<div class="galereya-top" />').html($categoriesList));
+                $categoriesList.append('<li class="galereya-cats-item"><span>' + self.options.noCategoryName + '</span></li>');
                 for (var i = 0; i < categories.length; i++) {
-                    $categoriesList.append('<li class="gallery-cats-item"><span>' + categories[i] + '</span></li>');
+                    $categoriesList.append('<li class="galereya-cats-item"><span>' + categories[i] + '</span></li>');
                 }
             }
 
             var $img, title, desc;
-            $imgs.wrapAll('<div class="gallery-grid" />').each(function (i, img) {
+            $imgs.wrapAll('<div class="galereya-grid" />').each(function (i, img) {
                 $img = $(img);
                 title = data[i].title;
                 desc = data[i].description;
-                $img.addClass('gallery-cell-img')
-                    .wrap('<div class="gallery-cell" data-index="' + i + '"></div>')
+                $img.addClass('galereya-cell-img')
+                    .wrap('<div class="galereya-cell" data-index="' + i + '"></div>')
                     .parent()
-                    .append('<div class="gallery-cell-desc">\
-                                <div class="gallery-cell-desc-title">' + title + '</div>\
-                                <div class="gallery-cell-desc-text">' + desc + '</div>\
+                    .append('<div class="galereya-cell-desc">\
+                                <div class="galereya-cell-desc-title">' + title + '</div>\
+                                <div class="galereya-cell-desc-text">' + desc + '</div>\
                             </div>')
-                    .append('<div class="gallery-cell-overlay" />');
+                    .append('<div class="galereya-cell-overlay" />');
             });
 
-            $cells = self.find('.gallery-cell');
-            $grid = self.find('.gallery-grid');
+            $cells = self.find('.galereya-cell');
+            $grid = self.find('.galereya-grid');
 
-            $slider = $('<div class="gallery-slider" />');
-            $sliderContainer = $('<div class="gallery-slider-container" />');
-            $sliderNext = $('<div class="gallery-slider-nav right" />');
-            $sliderPrev = $('<div class="gallery-slider-nav left" />');
-            $sliderDesc = $('<div class="gallery-slider-desc" />');
-            $sliderClose = $('<div class="gallery-slider-close" />');
-            $sliderPlay = $('<div class="gallery-slider-play" />');
+            $slider = $('<div class="galereya-slider" />');
+            $sliderContainer = $('<div class="galereya-slider-container" />');
+            $sliderNext = $('<div class="galereya-slider-nav right" />');
+            $sliderPrev = $('<div class="galereya-slider-nav left" />');
+            $sliderDesc = $('<div class="galereya-slider-desc" />');
+            $sliderClose = $('<div class="galereya-slider-close" />');
+            $sliderPlay = $('<div class="galereya-slider-play" />');
             $slider
                 .append($sliderContainer)
                 .append($sliderNext)
@@ -388,20 +394,20 @@
          * @param category
          */
         var changeCategory = function (category) {
-            $categoriesList.empty().prepend('<li class="gallery-cats-item"><span>' + category + '</span></li>');
+            $categoriesList.empty().prepend('<li class="galereya-cats-item"><span>' + category + '</span></li>');
 
             hideCells();
             if (category === self.options.noCategoryName) {
                 loadImages(0);
             } else {
-                $categoriesList.append('<li class="gallery-cats-item"><span>' + self.options.noCategoryName + '</span></li>');
+                $categoriesList.append('<li class="galereya-cats-item"><span>' + self.options.noCategoryName + '</span></li>');
                 loadImages(0, category);
             }
 
             for (var i = 0, len = categories.length, cat; i < len; i++) {
                 cat = categories[i];
                 if (cat !== category) {
-                    $categoriesList.append('<li class="gallery-cats-item"><span>' + cat + '</span></li>');
+                    $categoriesList.append('<li class="galereya-cats-item"><span>' + cat + '</span></li>');
                 }
             }
         };
@@ -413,7 +419,7 @@
             calcParams();
 
             if ($currentImg.length === 0) {
-                $currentImg = $currentSlide.find('.gallery-slide-img');
+                $currentImg = $currentSlide.find('.galereya-slide-img');
             }
             $currentImg.css('margin-top', ($(window).height() - $currentImg.height()) / 2);
             $grid.width(self.options.gridW);
@@ -502,10 +508,10 @@
                 $slide,
                 $img;
 
-            $slide = $('<div class="gallery-slider-slide" />')
-                .html('<div class="gallery-slide-loader"></div>');
+            $slide = $('<div class="galereya-slider-slide" />')
+                .html('<div class="galereya-slide-loader"></div>');
 
-            $img = $('<img class="gallery-slide-img" src="' + data[index].fullsrc + '" alt="' + data[index].title + '" />').load(function () {
+            $img = $('<img class="galereya-slide-img" src="' + data[index].fullsrc + '" alt="' + data[index].title + '" />').load(function () {
                 $slide.html($img);
                 $img.css('margin-top', ($(window).height() - $img.height()) / 2);
                 if (slideShowInterval) {
@@ -583,8 +589,8 @@
             currentSlideIndex = nextSlideIndex;
             $currentSlide = $slide;
             index = visibleCells[currentSlideIndex].getAttribute('data-index');
-            $sliderDesc.empty().html('<div class="gallery-slider-desc-title">' + data[index].title + ' </div>' + data[index].description);
-            $currentImg = $slide.find('.gallery-slide-img');
+            $sliderDesc.empty().html('<div class="galereya-slider-desc-title">' + data[index].title + ' </div>' + data[index].description);
+            $currentImg = $slide.find('.galereya-slide-img');
             $currentImg.css('margin-top', ($(window).height() - $currentImg.height()) / 2);
 
             updateNavigation();
@@ -681,11 +687,11 @@
         constructor();
         if (this.length > 1) {
             this.each(function () {
-                $(this).gallery(options);
+                $(this).galereya(options);
             });
         }
         return this;
     }
 
-    $.fn.gallery = Gallery;
+    $.fn.galereya = Galereya;
 }(jQuery));

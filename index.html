@@ -2,20 +2,20 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="description" content="Галерея">
+        <meta name="description" content="Galereya. JQuery gallery plugin.">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 
-        <title>VodkaBears gallery</title>
+        <title>Galereya</title>
 
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/jquery.gallery.css">
+        <link rel="stylesheet" href="css/jquery.galereya.css">
         <!--[if lt IE 9]>
-        <link rel="stylesheet" href="css/jquery.gallery.ie.css">
+        <link rel="stylesheet" href="css/jquery.galereya.ie.css">
         <![endif]-->
         <script src="js/jquery-1.9.0.min.js"></script>
-        <script src="js/jquery.gallery.js"></script>
+        <script src="js/jquery.galereya.js"></script>
         <style>
-            .gallery-top {
+            .galereya-top {
                 position: fixed;
 
                 background: rgba(246, 246, 246, 0.7);
@@ -23,7 +23,7 @@
         </style>
         <script>
             $(function() {
-                $('#gallery').gallery({
+                $('#gallery').galereya({
                     load: function(next) {
                         $.getJSON('images.json', function(data) {
                             next(data);
