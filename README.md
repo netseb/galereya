@@ -1,9 +1,9 @@
 Galereya
 =================
-Responsive, easily customizable and very powerful gallery with masonry layout.
+Responsive, easily customizable gallery with masonry layout.
 Almost all animation and effects are based on CSS properties.
 
-**Look here**: [Click](http://vodkabears.github.com/galereya/demo.html)
+**Look here**: [Click](http://vodkabears.github.com/galereya)
 
 Browser Compatibility
 ---------------------
