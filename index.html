@@ -2,29 +2,141 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="description" content="Galereya. JQuery gallery plugin.">
+        <title>Galereya. jQuery gallery.</title>
+        <meta name="description" content="Galereya">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 
-        <title>Galereya</title>
-
+        <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/rainbow.css">
         <link rel="stylesheet" href="css/jquery.galereya.css">
         <!--[if lt IE 9]>
         <link rel="stylesheet" href="css/jquery.galereya.ie.css">
         <![endif]-->
-        <script src="js/jquery-1.9.0.min.js"></script>
-        <script src="js/jquery.galereya.js"></script>
-        <style>
-            .galereya-top {
-                position: fixed;
 
-                background: #f6f6f6;
-                background: rgba(246, 246, 246, 0.7);
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/jquery-1.9.1.min.js"><\/script>')</script>
+        <script src="js/jquery.galereya.js"></script>
+        <script src="js/rainbow.min.js"></script>
+        <script src="js/main.js"></script>
+
+        <style>
+            .galereya.ex1 {
+                max-width: 1400px;
+                margin: auto;
+            }
+
+                .galereya.ex1 .galereya-top { display: none; }
+
+                .galereya.ex1 .galereya-grid { top: 0; }
+
+                .galereya.ex1 .galereya-cell {
+                    width: 80px;
+                    padding: 0;
+
+                    -webkit-transition: -webkit-transform 0.3s ease-out;
+                    -moz-transition: -moz-transform 0.3s ease-out;
+                    -o-transition: -o-transform 0.3s ease-out;
+                    transition: transform 0.3s ease-out;
+                }
+                .galereya.ex1 .galereya-cell:hover {
+                    -webkit-transform: scale(1.5);
+                    -moz-transform: scale(1.5);
+                    -ms-transform: scale(1.5);
+                    -o-transform: scale(1.5);
+                    transform: scale(1.5);
+                    -webkit-box-shadow: 0 0 2em #000;
+                    box-shadow: 0 0 2em #000;
+                }
+                    .galereya.ex1 .galereya-cell-img { width: 80px; }
+
+                    .galereya.ex1 .galereya-cell-desc { display: none; }
+
+                    .galereya.ex1 .galereya-cell-overlay {
+                        -webkit-box-shadow: none;
+                        box-shadow: none;
+                    }
+
+            .galereya-slider.ex1 {
+                opacity: 0;
+
+                -webkit-transform: translateX(0);
+                -moz-transform: translateX(0);
+                -ms-transform: translate(0);
+                -o-transform: translateX(0);
+                transform: translateX(0);
+                -webkit-transition: opacity .5s ease-out;
+                -moz-transition: opacity .5s ease-out;
+                transition: opacity .5s ease-out;
+                -o-transition: none;
+            }
+
+            .galereya-slider.ex1.opened { opacity: 100; }
+
+            .galereya-slider.ex1 .galereya-slider-desc {
+                font-size: 12pt;
+
+                top: 0;
+                bottom: auto;
+                left: 0;
+
+                width: 200px;
+            }
+
+            .galereya-slider.ex1 .galereya-slider-play,
+            .galereya-slider.ex1 .galereya-slider-close {
+                top: auto;
+                bottom: 0;
+            }
+
+            .galereya-slider.ex1 .galereya-slider-slide {
+                opacity: 100;
+
+                -webkit-transition: opacity .5s ease-out;
+                -moz-transition: opacity .5s ease-out;
+                transition: opacity .5s ease-out;
+                -o-transition: none;
+
+                background: #000 url(img/wild_oliva.png);
+            }
+
+                .galereya-slider.ex1 .galereya-slide-img {
+                    -webkit-box-shadow: 0 0 1em #000;
+                    box-shadow: 0 0 2em #000;
+                }
+
+            .galereya-slider.ex1 .galereya-slider-slide.next {
+                opacity: 0;
+
+                -webkit-transform: translateX(0);
+                -moz-transform: translateX(0);
+                -ms-transform: translate(0);
+                -o-transform: translateX(0);
+                transform: translateX(0);
+            }
+            .galereya-slider-slide.current {}
+            .galereya-slider-slide.prev {}
+
+            @media only screen and (min-width: 601px) {
+                .galereya.ex1 .galereya-cell { width: 200px; }
+
+                    .galereya.ex1 .galereya-cell-img { width: 200px; }
             }
         </style>
         <script>
             $(function() {
-                $('#gallery').galereya({
+                $('#gal1').galereya({
+                    load: function(next) {
+                        $.getJSON('images.json', function(data) {
+                            next(data);
+                        });
+                    }
+                });
+
+                $('#ex1').galereya({
+                    wave: false,
+                    modifier: 'ex1',
+                    spacing: 5,
                     load: function(next) {
                         $.getJSON('images.json', function(data) {
                             next(data);
@@ -35,11 +147,326 @@
         </script>
     </head>
     <body>
-        <a href="https://github.com/VodkaBears">
-            <img style="position: absolute; top: 0; left: 0; border: 0; z-index: 1000000;"
-                 src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"
-                 alt="Fork me on GitHub">
-        </a>
-        <div id="gallery"></div>
+        <nav class="nav" id="nav">
+            <a class="nav-toggle" id="navToggle">
+                <div class="nav-toggle-img"></div>
+            </a>
+            <ul>
+                <li><a href="#intro"><span>Download</span></a></li>
+                <li><a href="#browsers"><span>Browser Compatibility</span></a></li>
+                <li><a href="#start"><span>Rapid start</span></a></li>
+                <li><a href="#options"><span>Options</span></a></li>
+                <li class="last"><a href="#methods"><span>Methods</span></a></li>
+                <li class="last"><a href="#customization"><span>Customization</span></a></li>
+            </ul>
+        </nav>
+        <div class="main" id="main">
+            <a href="https://github.com/VodkaBears/galereya">
+                <img style="position: absolute; top: 0; right: 0; border: 0;"
+                     src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"
+                     alt="Fork me on GitHub">
+            </a>
+            <article class="article" id="intro">
+                <h1>Galereya</h1>
+                <p>
+                    Responsive, easily customizable jquery
+                    gallery with a masonry layout.
+                </p>
+                <div class="article-row">
+                    <a href="https://github.com/VodkaBears/galereya/archive/master.zip" class="btn orange"><span>Download</span></a>
+                    &nbsp;&nbsp;
+                    <a target="_blank" href="demo.html" class="btn"><span>Demo</span></a>
+                </div>
+                <div class="article-row">
+                    <div class="preview_img"></div>
+                </div>
+            </article>
+            <article class="article" id="browsers">
+                <h2>Browser compatibility</h2>
+                <div class="article-row">
+                    <div class="browsers_img"></div>
+                </div>
+                <div class="article-row">
+                    <p>
+                        Tested on Chrome, Safari, Firefox,
+                        Opera(turned off some CSS animations),
+                        IE7+(Graceful degradation), Android
+                        browser, Chrome mobile, Firefox mobile,
+                        Safari on iOS.
+                    </p>
+                    <br />
+                    <p>
+                        Galereya effects and browser
+                        compatibility depends on your custom
+                        CSS styles a lot!
+                    </p>
+                </div>
+            </article>
+            <article class="article" id="start">
+                <h2>Rapid start</h2>
+                <div class="article-row">
+                    <pre class="code">
+                        <code data-language="javascript">
+$('#gal1').galereya({
+    load: function(next) {
+        $.getJSON('images.json',
+        function(data) {
+            // var data = [{"lowsrc":"upload\/thumbnails\/5165b70278e0e2.80829014.jpg","fullsrc":"upload\/5165b70278e0e2.80829014.jpg","description":"Mehmet Dere","category":"drawing"}, ...]
+            next(data);
+        });
+    }
+});
+                        </code>
+                    </pre>
+                    <p>OR</p>
+                    <pre class="code">
+                        <code data-language="html">
+<div id="galleryherepls">
+    <img src="path/to/thumbnail"
+        alt="Title here"
+        title="Or here(more priority)"
+        data-desc="some description"
+        data-category="image category here"
+        data-fullsrc="path/to/full/image."
+    />
+                                    ...
+    <img src="imgs/thumbnails/image42.jpg"
+        alt="Image"
+        data-desc="Example"
+        data-fullsrc="imgs/image42.jpg"
+    />
+</div>
+                        </code>
+                    </pre>
+                    <pre class="code">
+                        <code data-language="javascript">
+$('#galleryherepls').galereya();
+                        </code>
+                    </pre>
+
+                </div>
+                <div class="article-row wide" style="height: 2250px;">
+                    <div id="gal1"></div>
+                </div>
+            </article>
+            <article class="article" id="options">
+                <h2>Options</h2>
+                <div class="article-row">
+                    <pre class="code">
+                        <code data-language="javascript">
+$('#galleryherepls').galereya({
+    // spacing between cells of the masonry grid
+    spacing: 0,
+
+    // waving visual effect
+    wave: true,
+
+    // waving visual effect timeout duration
+    waveTimeout: 300,
+
+    // special CSS modifier for the gallery
+    modifier: '',
+
+    // speed of the slide show
+    slideShowSpeed: 10000,
+
+    // speed of appearance of cells
+    cellFadeInSpeed: 200,
+
+    // the name of the general category
+    noCategoryName: 'all',
+
+    // set to true, if you don't want to show the slider on the cell click.
+    disableSliderOnClick: false,
+
+    // loading of images from JS. Just pass data to the callback 'next'.
+    load: function(next) {
+         //Data structure example
+         //var data = [{"lowsrc":"upload\/thumbnails\/5165b70278e0e2.80829014.jpg","fullsrc":"upload\/5165b70278e0e2.80829014.jpg","description":"Mehmet Dere","category":"drawing"}]
+         next(data);
+    }
+});
+                        </code>
+                    </pre>
+                </div>
+            </article>
+            <article class="article" id="methods">
+                <h2>Methods</h2>
+                <div class="article-row">
+                    <div>
+                        <pre class="code">
+                            <code data-language="javascript">
+var gallery = $('#gal1').galereya();
+gallery.openSlider(5);
+                            </code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="code">
+                            <code data-language="javascript">
+// Opens slider. `visibleIndex` parameter is an index of a set of visible cells.
+gallery.openSlider(5);
+
+// Yes, close it.
+gallery.closeSlider();
+
+// Show a special category of images. `categoryName` is a name of a category.
+gallery.changeCategory(categoryName)
+
+// Start slide show.
+gallery.startSlideShow();
+
+// Stop slide show.
+gallery.stopSlideShow();
+
+// Go to the next slide, if slider is opened.
+gallery.nextSlide();
+
+// Go to the previous slide, if slider is opened.
+gallery.prevSlide();
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </article>
+            <article class="article" id="customization">
+                <h2>Customization example</h2>
+                <div class="article-row">
+                    <p>
+                        <b>Note:</b> Don't set animations of cells using size properties like width, height, margins, paddings, instead of this use transform property.
+                        I recommend you to use an animation of a transform property everywhere when it is possible, it is more faster, safer and more modern.
+                    </p>
+                    <br />
+                    <pre class="code">
+                        <code data-language="css">
+.galereya.ex1 {
+    max-width: 1400px;
+    margin: auto;
+}
+
+    .galereya.ex1 .galereya-top { display: none; }
+
+    .galereya.ex1 .galereya-grid { top: 0; }
+
+    .galereya.ex1 .galereya-cell {
+        width: 80px;
+        padding: 0;
+
+        -webkit-transition: -webkit-transform 0.3s ease-out;
+        -moz-transition: -moz-transform 0.3s ease-out;
+        -o-transition: -o-transform 0.3s ease-out;
+        transition: transform 0.3s ease-out;
+    }
+    .galereya.ex1 .galereya-cell:hover {
+        -webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        transform: scale(1.5);
+        -webkit-box-shadow: 0 0 2em #000;
+        box-shadow: 0 0 2em #000;
+    }
+
+        .galereya.ex1 .galereya-cell-img { width: 80px; }
+
+        .galereya.ex1 .galereya-cell-desc { display: none; }
+
+        .galereya.ex1 .galereya-cell-overlay {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+.galereya-slider.ex1 {
+    opacity: 0;
+
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translate(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    transition: opacity .5s ease-out;
+    -o-transition: none;
+}
+.galereya-slider.ex1.opened { opacity: 100; }
+
+    .galereya-slider.ex1 .galereya-slider-desc {
+        font-size: 12pt;
+
+        top: 0;
+        bottom: auto;
+        left: 0;
+
+        width: 200px;
+    }
+
+    .galereya-slider.ex1 .galereya-slider-play,
+    .galereya-slider.ex1 .galereya-slider-close {
+        top: auto;
+        bottom: 0;
+    }
+
+    .galereya-slider.ex1 .galereya-slider-slide {
+        opacity: 100;
+        background: #000 url(img/wild_oliva.png);
+        -webkit-transition: opacity .5s ease-out;
+        -moz-transition: opacity .5s ease-out;
+        transition: opacity .5s ease-out;
+        -o-transition: none;
+    }
+    .galereya-slider.ex1 .galereya-slider-slide.next {
+        opacity: 0;
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translate(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+    }
+    .galereya-slider.ex1 .galereya-slider-slide.current {}
+    .galereya-slider.ex1 .galereya-slider-slide.prev {}
+
+
+        .galereya-slider.ex1 .galereya-slide-img {
+            -webkit-box-shadow: 0 0 1em #000;
+            box-shadow: 0 0 2em #000;
+        }
+
+
+@media only screen and (min-width: 601px) {
+    .galereya.ex1 .galereya-cell { width: 150px; }
+        .galereya.ex1 .galereya-cell-img { width: 150px; }
+}
+                        </code>
+                    </pre>
+                    <pre class="code">
+                        <code data-language="javascript">
+$('#ex1').galereya({
+    wave: false,
+    modifier: 'ex1',
+    spacing: 5,
+    disableSliderOnClick: true,
+    load: function(next) {
+        $.getJSON('images.json', function(data) {
+            next(data);
+        });
+    }
+});
+                        </code>
+                    </pre>
+                </div>
+                <div class="article-row wide">
+                    <div id="ex1"></div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src='//www.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
     </body>
 </html>
