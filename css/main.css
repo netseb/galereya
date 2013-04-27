@@ -52,6 +52,7 @@
 html, body {
     overflow-x: hidden;
 
+    height: 100%;
     margin: 0;
 }
 
@@ -77,7 +78,7 @@ h3 { font-size: 1.8em; }
 .nav_toggle {
     position: fixed;
     top: 0.5em;
-    left: -1em;
+    left: -1.1em;
     z-index: 15000;
 
     display: block;
@@ -98,11 +99,11 @@ h3 { font-size: 1.8em; }
     transition: transform .3s ease-out, left .3s ease-out;
 }
 .nav_toggle.shifted {
-    -webkit-transform: translateX(20em);
-    -moz-transform: translateX(20em);
-    -ms-transform: translate(20em);
-    -o-transform: translateX(20em);
-    transform: translateX(20em);
+    -webkit-transform: translateX(21em);
+    -moz-transform: translateX(21em);
+    -ms-transform: translate(21em);
+    -o-transform: translateX(21em);
+    transform: translateX(21em);
 }
 .no-csstransforms .nav_toggle.shifted {
     left: 20em;
