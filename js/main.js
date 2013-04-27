@@ -6,11 +6,13 @@ $(document).ready(function() {
     setTimeout(showHiddenParagraphs, 1000);
 
     var $nav = $('#nav'),
-        $main = $('#main');
+        $main = $('#main'),
+        $navToggle = $('#navToggle');
 
     function toggleNav() {
         $main.toggleClass('shifted');
         $nav.toggleClass('opened');
+        $navToggle.toggleClass('shifted');
     }
 
     function scroll(e) {

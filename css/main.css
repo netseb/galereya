@@ -74,6 +74,48 @@ h3 { font-size: 1.8em; }
 /* Common(end) */
 
 /* Nav(begin) */
+.nav_toggle {
+    position: fixed;
+    top: 0.5em;
+    left: -1em;
+    z-index: 15000;
+
+    display: block;
+
+    width: 5.5em;
+    height: 5em;
+
+    cursor: pointer;
+
+    background: #212121 url('../img/nav-bg.png') no-repeat center;
+    -webkit-border-radius: 0.3em;
+    border-radius: 0 0.3em 0.3em 0;
+    -webkit-box-shadow: 0.3em 0 0.3em 0 #000;
+    box-shadow: 0.3em 0 0.3em 0 #000;
+    -webkit-transition: -webkit-transform .3s ease-out, left .3s ease-out;
+    -moz-transition: -moz-transform .3s ease-out, left .3s ease-out;
+    -o-transition: -o-transform .3s ease-out, left .3s ease-out;
+    transition: transform .3s ease-out, left .3s ease-out;
+}
+.nav_toggle.shifted {
+    -webkit-transform: translateX(20em);
+    -moz-transform: translateX(20em);
+    -ms-transform: translate(20em);
+    -o-transform: translateX(20em);
+    transform: translateX(20em);
+}
+.no-csstransforms .nav_toggle.shifted {
+    left: 20em;
+}
+
+    .nav_toggle-img {
+        width: 2.5em;
+        height: 2.5em;
+        margin: 1.2em 0 0 2.1em;
+
+        background: url('../img/nav-toggle.png') no-repeat center;
+    }
+
 .nav {
     position: fixed;
     top: 0;
@@ -101,33 +143,6 @@ h3 { font-size: 1.8em; }
 .no-csstransforms .nav.opened {
     left: 0;
 }
-
-    .nav-toggle {
-        position: absolute;
-        top: 0.5em;
-        right: -5.5em;
-
-        display: block;
-
-        width: 5.5em;
-        height: 5em;
-
-        cursor: pointer;
-
-        background: #212121 url('../img/nav-bg.png') no-repeat center;
-        -webkit-border-radius: 0.3em;
-        border-radius: 0 0.3em 0.3em 0;
-        -webkit-box-shadow: 0.3em 0 0.3em 0 #000;
-        box-shadow: 0.3em 0 0.3em 0 #000;
-    }
-
-        .nav-toggle-img {
-            width: 2.5em;
-            height: 2.5em;
-            margin: 1.2em 0 0 2em;
-
-            background: url('../img/nav-toggle.png') no-repeat center;
-        }
 
     .nav ul {
         width: 100%;
@@ -343,7 +358,7 @@ h3 { font-size: 1.8em; }
         -o-transform: translateX(0);
         transform: translateX(0);
     }
-        .nav-toggle { display: none; }
+        .nav_toggle { display: none; }
 
     .main { padding-left: 20em; }
     .main.shifted { left: 0;
