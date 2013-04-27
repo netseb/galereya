@@ -349,7 +349,13 @@ h3 { font-size: 1.8em; }
         .nav-toggle { display: none; }
 
     .main { padding-left: 20em; }
-    .main.shifted { left: 0; }
+    .main.shifted { left: 0;
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translate(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+    }
 
     .preview_img {
         width: 108em;
