@@ -182,9 +182,6 @@ h3 { font-size: 1.8em; }
     -o-transform: translateX(21em);
     transform: translateX(21em);
 }
-.no-csstransforms .main.shifted {
-    left: 20em;
-}
 /* Section(end) */
 
 /* Article(begin) */
