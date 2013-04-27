@@ -17,7 +17,7 @@ pre {
 }
 
 pre, code {
-    font-family: 'Monaco', courier, monospace;
+    font-family: 'Scada', sans-serif;
 }
 
 pre .comment {

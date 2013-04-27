@@ -86,12 +86,19 @@ h3 { font-size: 1.8em; }
     background: #212121 url('../img/nav-bg.png');
     -webkit-box-shadow: 0 0 0.3em 0.3em #000;
     box-shadow: 0 0 0.3em 0.3em #000;
-    -webkit-transition: left .3s ease-out;
-    -moz-transition: left .3s ease-out;
-    -o-transition: left .3s ease-out;
-    transition: left .3s ease-out;
+    -webkit-transition: -webkit-transform .3s ease-out, left .3s ease-out;
+    -moz-transition: -moz-transform .3s ease-out, left .3s ease-out;
+    -o-transition: -o-transform .3s ease-out, left .3s ease-out;
+    transition: transform .3s ease-out, left .3s ease-out;
 }
 .nav.opened {
+    -webkit-transform: translateX(21em);
+    -moz-transform: translateX(21em);
+    -ms-transform: translate(21em);
+    -o-transform: translateX(21em);
+    transform: translateX(21em);
+}
+.no-csstransitions .nav.opened {
     left: 0;
 }
 
@@ -161,13 +168,21 @@ h3 { font-size: 1.8em; }
     position: relative;
     left: 0;
 
-    -webkit-transition: left .3s ease-out;
-    -moz-transition: left .3s ease-out;
-    -o-transition: left .3s ease-out;
-    transition: left .3s ease-out;
-}
+    min-width: 32em;
 
+    -webkit-transition: -webkit-transform .3s ease-out, left .3s ease-out;
+    -moz-transition: -moz-transform .3s ease-out, left .3s ease-out;
+    -o-transition: -o-transform .3s ease-out, left .3s ease-out;
+    transition: transform .3s ease-out, left .3s ease-out;
+}
 .main.shifted {
+    -webkit-transform: translateX(21em);
+    -moz-transform: translateX(21em);
+    -ms-transform: translate(21em);
+    -o-transform: translateX(21em);
+    transform: translateX(21em);
+}
+.no-csstransitions .main.shifted {
     left: 20em;
 }
 /* Section(end) */
@@ -188,6 +203,9 @@ h3 { font-size: 1.8em; }
     .article-row.wide {
         max-width: none;
         padding: 0;
+    }
+    .article-row.fixed {
+        min-height: 250em;
     }
 
     .article-row.aleft { text-align: left; }
@@ -237,7 +255,6 @@ h3 { font-size: 1.8em; }
 /* Code(begin) */
 .code {
     font-size: 1.2em;
-    font-weight: bold;
 
     max-width: 80em;
     margin: 1em auto;
@@ -284,6 +301,10 @@ h3 { font-size: 1.8em; }
         text-align: center;
     }
 
+        .article-row.fixed {
+            min-height: 450em;
+        }
+
     .article p {
         font-size: 2em;
 
@@ -318,6 +339,13 @@ h3 { font-size: 1.8em; }
     h2 { margin: 50px 0 0 0; }
 
     .nav { left: 0; }
+    .nav.opened {
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translate(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+    }
         .nav-toggle { display: none; }
 
     .main { padding-left: 20em; }

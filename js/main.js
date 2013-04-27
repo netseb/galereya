@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    // some magic for the rainbow
     function showHiddenParagraphs() {
         $("p.hidden").fadeIn(500);
     }
