@@ -21,132 +21,6 @@
         <script src="js/jquery.galereya.js"></script>
         <script src="js/rainbow.min.js"></script>
         <script src="js/main.js"></script>
-
-        <style>
-            .galereya.ex1 {
-                max-width: 1400px;
-                margin: auto;
-            }
-
-                .galereya.ex1 .galereya-top { display: none; }
-
-                .galereya.ex1 .galereya-grid { top: 0; }
-
-                .galereya.ex1 .galereya-cell {
-                    width: 80px;
-                    padding: 0;
-
-                    -webkit-transition: -webkit-transform 0.3s ease-out;
-                    -moz-transition: -moz-transform 0.3s ease-out;
-                    -o-transition: -o-transform 0.3s ease-out;
-                    transition: transform 0.3s ease-out;
-                }
-                .galereya.ex1 .galereya-cell:hover {
-                    -webkit-transform: scale(1.5);
-                    -moz-transform: scale(1.5);
-                    -ms-transform: scale(1.5);
-                    -o-transform: scale(1.5);
-                    transform: scale(1.5);
-                    -webkit-box-shadow: 0 0 2em #000;
-                    box-shadow: 0 0 2em #000;
-                }
-                    .galereya.ex1 .galereya-cell-img { width: 80px; }
-
-                    .galereya.ex1 .galereya-cell-desc { display: none; }
-
-                    .galereya.ex1 .galereya-cell-overlay {
-                        -webkit-box-shadow: none;
-                        box-shadow: none;
-                    }
-
-            .galereya-slider.ex1 {
-                opacity: 0;
-
-                -webkit-transform: translateX(0);
-                -moz-transform: translateX(0);
-                -ms-transform: translate(0);
-                -o-transform: translateX(0);
-                transform: translateX(0);
-                -webkit-transition: opacity .5s ease-out;
-                -moz-transition: opacity .5s ease-out;
-                transition: opacity .5s ease-out;
-                -o-transition: none;
-            }
-
-            .galereya-slider.ex1.opened { opacity: 100; }
-
-            .galereya-slider.ex1 .galereya-slider-desc {
-                font-size: 12pt;
-
-                top: 0;
-                bottom: auto;
-                left: 0;
-
-                width: 200px;
-            }
-
-            .galereya-slider.ex1 .galereya-slider-play,
-            .galereya-slider.ex1 .galereya-slider-close {
-                top: auto;
-                bottom: 0;
-            }
-
-            .galereya-slider.ex1 .galereya-slider-slide {
-                opacity: 100;
-
-                -webkit-transition: opacity .5s ease-out;
-                -moz-transition: opacity .5s ease-out;
-                transition: opacity .5s ease-out;
-                -o-transition: none;
-
-                background: #000 url(img/wild_oliva.png);
-            }
-
-                .galereya-slider.ex1 .galereya-slide-img {
-                    -webkit-box-shadow: 0 0 1em #000;
-                    box-shadow: 0 0 2em #000;
-                }
-
-            .galereya-slider.ex1 .galereya-slider-slide.next {
-                opacity: 0;
-
-                -webkit-transform: translateX(0);
-                -moz-transform: translateX(0);
-                -ms-transform: translate(0);
-                -o-transform: translateX(0);
-                transform: translateX(0);
-            }
-            .galereya-slider-slide.current {}
-            .galereya-slider-slide.prev {}
-
-            @media only screen and (min-width: 601px) {
-                .galereya.ex1 .galereya-cell { width: 200px; }
-
-                    .galereya.ex1 .galereya-cell-img { width: 200px; }
-            }
-        </style>
-        <script>
-            $(function() {
-                $('#gal1').galereya({
-                    load: function(next) {
-                        $.getJSON('images.json', function(data) {
-                            next(data);
-                        });
-                    }
-                });
-
-                $('#ex1').galereya({
-                    wave: false,
-                    modifier: 'ex1',
-                    spacing: 5,
-                    load: function(next) {
-                        $.getJSON('images.json', function(data) {
-                            next(data);
-                        });
-                    }
-                });
-            });
-        </script>
     </head>
     <body>
         <nav class="nav" id="nav">
@@ -207,6 +81,17 @@
             <article class="article" id="start">
                 <h2>Rapid start</h2>
                 <div class="article-row">
+                    <p>
+                        Set a height of a parent:
+                    </p>
+                    <pre class="code">
+                        <code data-language="css">
+html, body { height: 100%; }
+                        </code>
+                    </pre>
+                    <p>
+                        Then load some images, like this:
+                    </p>
                     <pre class="code">
                         <code data-language="javascript">
 $('#gal1').galereya({
@@ -220,10 +105,10 @@ $('#gal1').galereya({
 });
                         </code>
                     </pre>
-                    <p>OR</p>
+                    <p>or this way:</p>
                     <pre class="code">
                         <code data-language="html">
-<div id="galleryherepls">
+<div id="gal1">
     <img src="path/to/thumbnail"
         alt="Title here"
         title="Or here(more priority)"
@@ -242,13 +127,13 @@ $('#gal1').galereya({
                     </pre>
                     <pre class="code">
                         <code data-language="javascript">
-$('#galleryherepls').galereya();
+$('#gal1').galereya();
                         </code>
                     </pre>
 
                 </div>
-                <div class="article-row wide fixed">
-                    <div id="gal1"></div>
+                <div class="article-row">
+                    <a class="btn orange" href="start.html" target="_blank"><span>View</span></a>
                 </div>
             </article>
             <article class="article" id="options">
@@ -278,7 +163,7 @@ $('#galleryherepls').galereya({
     // the name of the general category
     noCategoryName: 'all',
 
-    // set to true, if you don't want to show the slider on the cell click.
+    // set to true, if you don't want to show the slider on a cell click.
     disableSliderOnClick: false,
 
     // loading of images from JS. Just pass data to the callback 'next'.
@@ -339,8 +224,13 @@ gallery.prevSlide();
                         I recommend you to use an animation of a transform property everywhere when it is possible, it is more faster, safer and more modern.
                     </p>
                     <br />
+                    <p>
+                        For customizing Galereya you can start writing your styles from scratch or use modifier:
+                    </p>
                     <pre class="code">
                         <code data-language="css">
+html, body { height: 100%; }
+
 .galereya.ex1 {
     max-width: 1400px;
     margin: auto;
@@ -457,8 +347,8 @@ $('#ex1').galereya({
                         </code>
                     </pre>
                 </div>
-                <div class="article-row wide">
-                    <div id="ex1"></div>
+                <div class="article-row">
+                    <a class="btn orange" href="custom.html" target="_blank"><span>View</span></a>
                 </div>
             </article>
         </div>

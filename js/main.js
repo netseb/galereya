@@ -21,7 +21,7 @@ $(document).ready(function() {
         var hash = $(this).attr('href');
 
         toggleNav();
-        $('html, body').stop().animate({
+        $('html, body').stop(true, true).animate({
             scrollTop: $(hash).offset().top
         }, 1000, function() {
             location.hash = hash;

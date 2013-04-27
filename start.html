@@ -18,17 +18,10 @@
         <script src="js/jquery.galereya.js"></script>
         <style>
             html, body { height: 100%; }
-
-            .galereya-top {
-                position: fixed;
-
-                background: #f6f6f6;
-                background: rgba(246, 246, 246, 0.7);
-            }
         </style>
         <script>
             $(function() {
-                $('#gallery').galereya({
+                $('#gal1').galereya({
                     load: function(next) {
                         $.getJSON('images.json', function(data) {
                             next(data);
@@ -39,6 +32,6 @@
         </script>
     </head>
     <body>
-        <div id="gallery"></div>
+        <div id="gal1"></div>
     </body>
 </html>

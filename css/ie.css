@@ -36,7 +36,7 @@ h3 { font-size: 2.6em; }
     -o-transform: translateX(0);
     transform: translateX(0);
 }
-.nav-toggle { display: none; }
+.nav_toggle { display: none; }
 
 .main { padding-left: 20em; }
 .main.shifted { left: 0;
