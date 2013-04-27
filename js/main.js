@@ -21,7 +21,7 @@ $(document).ready(function() {
         toggleNav();
         $('html, body').stop().animate({
             scrollTop: $(hash).offset().top
-        }, 500, function() {
+        }, 1000, function() {
             location.hash = hash;
         });
     }
