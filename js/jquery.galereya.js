@@ -1,5 +1,5 @@
 /**
- * Galereya v 0.9
+ * Galereya v 0.9.9
  * http://vodkabears.github.com/galereya
  *
  * Licensed under the MIT license
