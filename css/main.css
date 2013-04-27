@@ -98,7 +98,7 @@ h3 { font-size: 1.8em; }
     -o-transform: translateX(21em);
     transform: translateX(21em);
 }
-.no-csstransitions .nav.opened {
+.no-csstransforms .nav.opened {
     left: 0;
 }
 
@@ -182,7 +182,7 @@ h3 { font-size: 1.8em; }
     -o-transform: translateX(21em);
     transform: translateX(21em);
 }
-.no-csstransitions .main.shifted {
+.no-csstransforms .main.shifted {
     left: 20em;
 }
 /* Section(end) */
