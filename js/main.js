@@ -1,3 +1,6 @@
+//Turn off highlighting for old IEs
+window.detachEvent('onload', Rainbow.color);
+
 $(document).ready(function() {
     // some magic for the rainbow
     function showHiddenParagraphs() {
