@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'Scada';
+    src: url('fonts/scada-regular-webfont.eot');
+    src: url('fonts/scada-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/scada-regular-webfont.woff') format('woff'),
+    url('fonts/scada-regular-webfont.ttf') format('truetype'),
+    url('fonts/scada-regular-webfont.svg#scadaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Scada';
+    src: url('fonts/scada-bold-webfont.eot');
+    src: url('fonts/scada-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/scada-bold-webfont.woff') format('woff'),
+    url('fonts/scada-bold-webfont.ttf') format('truetype'),
+    url('fonts/scada-bold-webfont.svg#scadabold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Scada';
+    src: url('fonts/scada-italic-webfont.eot');
+    src: url('fonts/scada-italic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/scada-italic-webfont.woff') format('woff'),
+    url('fonts/scada-italic-webfont.ttf') format('truetype'),
+    url('fonts/scada-italic-webfont.svg#scadaitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Scada';
+    src: url('fonts/scada-bolditalic-webfont.eot');
+    src: url('fonts/scada-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/scada-bolditalic-webfont.woff') format('woff'),
+    url('fonts/scada-bolditalic-webfont.ttf') format('truetype'),
+    url('fonts/scada-bolditalic-webfont.svg#scadaitalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}
+
+body {
+    font-family: 'Scada', sans-serif;
+    font-size: 0.625em;
+
+    background: #f6f6f6;
+    color: #212121;
+}
