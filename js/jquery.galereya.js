@@ -352,7 +352,7 @@
          * @param number
          */
         var placeCell = function (cell, number) {
-            var left, top, topCell, row, bottom, h;
+            var left, top, topCell, row;
 
             row = number % rowCount;
             left = row * cellW + self.options.spacing * row;
