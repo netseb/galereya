@@ -1,5 +1,7 @@
 //Turn off highlighting for old IEs
-window.detachEvent('onload', Rainbow.color);
+if(window.detachEvent) {
+    window.detachEvent('onload', Rainbow.color);
+}
 
 $(document).ready(function() {
     // some magic for the rainbow
@@ -31,6 +33,6 @@ $(document).ready(function() {
         });
     }
 
-    $('#navToggle').click(toggleNav);
+    $navToggle.click(toggleNav);
     $nav.find('li a').click(scroll);
 });
