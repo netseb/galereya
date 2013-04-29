@@ -52,7 +52,7 @@
 html, body {
     overflow-x: hidden;
 
-    height: 100%;
+    min-height: 100%;
 
     margin: 0;
 }
@@ -81,8 +81,6 @@ h3 { font-size: 1.8em; }
     top: 0;
     left: -21em;
     z-index: 10000;
-
-    float: left;
 
     width: 20em;
     height: 100%;
