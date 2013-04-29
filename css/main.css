@@ -92,11 +92,12 @@ h3 { font-size: 1.8em; }
     transition: transform .3s ease-out, left .3s ease-out;
 }
 .nav.opened {
-    -webkit-transform: translateX(21em);
+    left: 0;
+    /*-webkit-transform: translateX(21em);
     -moz-transform: translateX(21em);
     -ms-transform: translate(21em);
     -o-transform: translateX(21em);
-    transform: translateX(21em);
+    transform: translateX(21em);*/
 }
 .no-csstransforms .nav.opened {
     left: 0;
