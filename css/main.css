@@ -50,8 +50,6 @@
 }
 
 html, body {
-    position: relative;
-
     overflow-x: hidden;
 
     margin: 0;
@@ -184,6 +182,9 @@ h3 { font-size: 1.8em; }
     -ms-transform: translate(21em);
     -o-transform: translateX(21em);
     transform: translateX(21em);
+}
+.no-csstransforms .main.shifted {
+    left: 21em;
 }
 /* Section(end) */
 
@@ -322,6 +323,7 @@ h3 { font-size: 1.8em; }
 
     .nav { left: 0; }
     .nav.opened {
+        left: 0;
         -webkit-transform: translateX(0);
         -moz-transform: translateX(0);
         -ms-transform: translate(0);
@@ -333,7 +335,8 @@ h3 { font-size: 1.8em; }
     .article { margin-bottom: 100em; }
 
     .main { padding-left: 20em; }
-    .main.shifted { left: 0;
+    .main.shifted {
+        left: 0;
         -webkit-transform: translateX(0);
         -moz-transform: translateX(0);
         -ms-transform: translate(0);
