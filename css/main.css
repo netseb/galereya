@@ -52,8 +52,6 @@
 html, body {
     overflow-x: hidden;
 
-    height: 100%;
-
     margin: 0;
 }
 
@@ -173,6 +171,7 @@ h3 { font-size: 1.8em; }
 
     min-width: 32em;
 
+    -webkit-overflow-scrolling: touch;
     -webkit-transition: -webkit-transform .3s ease-out, left .3s ease-out;
     -moz-transition: -moz-transform .3s ease-out, left .3s ease-out;
     -o-transition: -o-transform .3s ease-out, left .3s ease-out;
