@@ -78,12 +78,12 @@ h3 { font-size: 1.8em; }
     position: fixed;
     top: 0;
     left: -21em;
+    bottom: 0;
     z-index: 10000;
 
     width: 20em;
     height: 100%;
 
-    -webkit-overflow-scrolling: touch;
     background: #212121 url('../img/nav-bg.png');
     -webkit-box-shadow: 0 0 0.3em 0.3em #000;
     box-shadow: 0 0 0.3em 0.3em #000;

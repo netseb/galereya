@@ -20,7 +20,7 @@ $(document).ready(function() {
         $navToggle.toggleClass('shifted');
     }
 
-    function scroll(e) {
+    function move(e) {
         e.preventDefault();
 
         var hash = $(this).attr('href');
@@ -34,5 +34,5 @@ $(document).ready(function() {
     }
 
     $navToggle.click(toggleNav);
-    $nav.find('li a').click(scroll);
+    $nav.find('li a').click(move);
 });
