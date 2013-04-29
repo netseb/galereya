@@ -49,7 +49,13 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 1000%;
+}
+
 html, body {
+    position: relative;
+
     overflow-x: hidden;
 
     margin: 0;
@@ -58,6 +64,8 @@ html, body {
 body {
     font-family: 'Scada', sans-serif;
     font-size: 0.625em;
+
+    overflow: hidden;
 
     background: #f6f6f6;
     color: #212121;
@@ -171,7 +179,6 @@ h3 { font-size: 1.8em; }
 
     min-width: 32em;
 
-    -webkit-overflow-scrolling: touch;
     -webkit-transition: -webkit-transform .3s ease-out, left .3s ease-out;
     -moz-transition: -moz-transform .3s ease-out, left .3s ease-out;
     -o-transition: -o-transform .3s ease-out, left .3s ease-out;
