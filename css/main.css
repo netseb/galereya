@@ -51,6 +51,9 @@
 
 html, body {
     overflow-x: hidden;
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
 
     margin: 0;
 }
@@ -59,9 +62,6 @@ body {
     font-family: 'Scada', sans-serif;
     font-size: 0.625em;
 
-    height: 100%;
-
-    -webkit-overflow-scrolling: touch;
     background: #f6f6f6;
     color: #212121;
 }
