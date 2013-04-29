@@ -23,11 +23,11 @@ $(document).ready(function() {
     function move(e) {
         e.preventDefault();
 
-        var hash = $(this).attr('href');
+        var hash = $(this).attr('href').substr(1);
 
         toggleNav();
         $('html, body').stop(true, true).animate({
-            scrollTop: '+=' + $(hash).offset().top
+            scrollTop: document.getElementById(hash).offsetTop
         }, 1000, function() {
             location.hash = hash;
         });
