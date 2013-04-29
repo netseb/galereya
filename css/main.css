@@ -81,7 +81,7 @@ h3 { font-size: 1.8em; }
     z-index: 10000;
 
     width: 20em;
-    height: 100%;
+    height: 1000%;
 
     background: #212121 url('../img/nav-bg.png');
     -webkit-box-shadow: 0 0 0.3em 0.3em #000;
