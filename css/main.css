@@ -59,7 +59,6 @@ body {
     font-family: 'Scada', sans-serif;
     font-size: 0.625em;
 
-    -webkit-overflow-scrolling: touch;
     background: #f6f6f6;
     color: #212121;
 }
@@ -84,6 +83,7 @@ h3 { font-size: 1.8em; }
     width: 20em;
     height: 100%;
 
+    -webkit-overflow-scrolling: touch;
     background: #212121 url('../img/nav-bg.png');
     -webkit-box-shadow: 0 0 0.3em 0.3em #000;
     box-shadow: 0 0 0.3em 0.3em #000;
