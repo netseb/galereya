@@ -27,7 +27,7 @@ $(document).ready(function() {
 
         toggleNav();
         $('html, body').stop(true, true).animate({
-            scrollTop: $(hash).offset().top
+            scrollTop: '+=' + $(hash).offset().top
         }, 1000, function() {
             location.hash = hash;
         });
