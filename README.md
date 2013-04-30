@@ -23,7 +23,7 @@ Rapid start
     <![endif]-->
 
     <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.galereya.js"></script>
+    <script src="js/jquery.galereya.min.js"></script>
     <script>
         $(function() {
             $('#galleryherepls').galereya();
@@ -58,7 +58,7 @@ OR
     <link rel="stylesheet" href="css/jquery.galereya.ie.css">
     <![endif]-->
 
-    <script src="jquery.galereya.js"></script>
+    <script src="js/jquery.galereya.min.js"></script>
     <script>
         $(function() {
             $('#galleryherepls').galereya({
