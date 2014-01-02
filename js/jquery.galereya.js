@@ -201,8 +201,8 @@
          * @param src
          * @returns {jQuery} - image element
          */
-        var createImage = function (src) {
-            var $img = $(document.createElement('img')).attr('src', src);
+        var createImage = function (src, width, height) {
+            var $img = $(document.createElement('img')).attr('src', src).attr('width', width).attr('height',height);
             self.append($img);
             $imgs = $imgs.add($img);
 
@@ -239,11 +239,13 @@
         var addInfo = function (info) {
             var item = {
                 "lowsrc": info.lowsrc || '',
-                "fullsrc": info.fullsrc || '',
+                "lowwidth": info.lowwidth || '',
+		"lowheight": info.lowheight || '',
+		"fullsrc": info.fullsrc || '',
                 "title": info.title || '',
                 "description": info.description || '',
                 "category": info.category || ''
-            };
+	    };
 
             if (item.category) {
                 item.category = item.category.toLowerCase();
@@ -264,7 +266,9 @@
             $imgs = self.find('img').each(function (i, img) {
                 item = {
                     "lowsrc": img.getAttribute('src') || '',
-                    "fullsrc": img.getAttribute('data-fullsrc') || '',
+                    "lowwidth": img.getAttribute('width') || '',
+		    "lowheight": img.getAttribute('height') || '',
+		    "fullsrc": img.getAttribute('data-fullsrc') || '',
                     "title": img.getAttribute('title') || img.getAttribute('alt') || '',
                     "description": img.getAttribute('data-desc') || '',
                     "category": img.getAttribute('data-category') || ''
@@ -277,7 +281,7 @@
                 if (items && items.length) {
                     for (var i = 0, len = items.length, item, $img; i < len; i++) {
                         item = addInfo(items[i]);
-                        createImage(item.lowsrc);
+                        createImage(item.lowsrc, item.lowwidth, item.lowheight);
                     }
                 }
 
@@ -749,7 +753,7 @@
                     item, $img;
                 for (; i < len; i++, gridIndex++) {
                     item = addInfo(items[i]);
-                    $img = createImage(item.lowsrc);
+                    $img = createImage(item.lowsrc, item.lowwidth, item.lowheight);
                     createCell($img, item);
                 }
 
